@@ -5,7 +5,7 @@
 }
  
   #intro{
- 	background-color: #008000;
+ 	background-color: #8a8c8a;
  	color: #FFFFFF;
  	height: 5%;	
  } 
@@ -13,20 +13,21 @@
 
  body { 
  	font: 20px;
+	background-color:black;
 }
 
  
  
  form { 
  	background: #000000; 
- 	padding: 3px; 
+ 	padding: 0px; 
  	position: fixed; 
  	bottom: 5px; 
  	width: 100%; 
  }
  
  form input { 
- 	background-color: #e6ffe6;
+ 	background-color: #0d0d0d;
  	border: 0; 
  	padding: 10px; 
  	width: 90%; 
@@ -34,11 +35,29 @@
  }
  
  form button { 
- 	width: 9%; 
+	border: none; 
+ 	/*width: 9%; 
  	background: #00e600;
  	border: none; 
  	padding: 5px; 
- 	font-size: 20px; 
+ 	font-size: 20px; */
+ }
+ 
+ #send{
+
+	width:10%;
+	height:100%;
+	background-color: #000000;
+	border-radius:100%;
+}
+
+ #sendimg{
+	width:10%;
+	height:100%;
+	padding:0;
+	margin:0;
+	position:relative;
+	right:0;
  }
  
  #messages { 
@@ -50,13 +69,33 @@
  
  #messages li { 
  	padding: 5px 10px; 
+	 background: #049cfb; 
  }
  
  #messages li:nth-child(odd) { 
- 	background: #b3ffb3; 
+ 	background: #f2f2f2; 
  }
 
 
 #list{
 	text-align: right;
 }
+
+#m{
+	border-radius:20px;
+	padding:15px;
+	margin:0;
+	width:80%;
+	height:100%;
+	color:white;
+	
+}
+#messsagebox{
+	color:#8a8c8a;
+	border-radius:20px;
+	border:#8a8c8a 1px solid;	
+	background-color: #a60b0b;
+	padding:0px;
+	margin:0px;
+}
+

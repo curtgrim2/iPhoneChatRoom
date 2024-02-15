@@ -11,15 +11,16 @@
 </head>
 <body>
     
+	
     <div id="intro">
-      <h1>Curtis' Test Chat Room</h1>
+		<div id="back"> < </div><h1>Curtis' Test Chat Room</h1>
 	  <h2>(Messages do not save - For exercise purposes)</h2>
     </div>
     
     <ul id="messages"></ul>
     
     <form action="">
-      <div id="messsagebox"><input id="m" placeholder="iMessage" autocomplete="off" required /><button id="send"><img id="sendimg" src="sendbutton.png"/></button></div>
+      <div id="messsagebox"><input id="m" placeholder="iMessage" autocomplete="off" required /><button id="sendbut"><img id="sendimg" src="sendbutton.png"/></button></div>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>
@@ -38,7 +39,7 @@
       			return false;
     		});
     		socket.on('chat message', function(msg){
-      			$('#messages').append($('<li>').text(msg));
+      			$('#messages').append($('<li id="other">').text(msg));
     		});
   		
     </script>

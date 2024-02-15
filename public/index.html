@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = "stylesheet" href="style.css">
 	<script>
-		var name = prompt("Please enter your name");
+		//var name = prompt("Please enter your name");
 	</script>
 </head>
 <body>
@@ -19,7 +19,7 @@
     <ul id="messages"></ul>
     
     <form action="">
-      <input id="m" placeholder="Enter your message..." autocomplete="off" required /><button>Send</button>
+      <div id="messsagebox"><input id="m" placeholder="iMessage" autocomplete="off" required /><button id="send"><img id="sendimg" src="sendbutton.png"/></button></div>
     </form>
 
     <script src="/socket.io/socket.io.js"></script>

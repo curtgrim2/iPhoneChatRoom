@@ -1,0 +1,36 @@
+{
+    "dependencies": {
+        "@types/marked": "^4.0.8",
+        "body-parser": "^1.20.2",
+        "dompurify": "^3.0.1",
+        "ejs": "^3.1.9",
+        "express": "^4.18.2",
+        "jsdom": "^21.1.1",
+        "marked": "^4.3.0",
+        "method-override": "^3.0.0",
+        "mongodb": "^5.1.0",
+        "mongoose": "^7.0.3",
+        "morgan": "^1.10.0",
+        "mysql": "^2.18.1",
+        "ng-file-upload": "^12.2.13",
+        "slugify": "^1.6.6",
+        "socket.io": "^4.7.4"
+    },
+    "name": "dgrea",
+    "version": "1.0.0",
+    "main": "dgrea_test.js",
+    "scripts": {
+        "start": "nodemon ./app.js --exec babel-node -e js",
+        "devStart": "nodemon server.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "babel-cli": "^6.26.0",
+        "babel-preset-env": "^1.7.0",
+        "babel-preset-stage-0": "^6.24.1",
+        "nodemon": "^2.0.22"
+    }
+}

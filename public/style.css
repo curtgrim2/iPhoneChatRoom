@@ -5,10 +5,14 @@
 }
  
   #intro{
- 	background-color: rgba(255,255,255,.1);
+ 	background-color: rgba(71, 70, 70, 0.9);
  	color: #FFFFFF;
- 	height: 5%;	
-	
+	backdrop-filter:blur(8px);
+	position: sticky;
+	position:-webkit-sticky;
+	top:0;
+	width: 100%;
+	z-index:2;	
  } 
 
  #back{
@@ -32,6 +36,15 @@
 	margin-bottom:4%;
  }
 
+ #grouppics{
+	text-align: center;
+ }
+
+ #yourpropic{
+	width:10%;
+	height:10%;
+ }
+
 
  body { 
  	font: 20px;
@@ -52,10 +65,11 @@
  	background-color: #000000;
  	border: 0; 
  	padding: 0px; 
- 	width: 90%; 
- 	margin-right: 0.5%; 
+ 	width: 80%; 
+ 	/*margin-right: 0.5%; */
 	outline:none; /*no outline when user clicks on message box*/
 	caret-color:#f2f2f2;/*The color of the cursor*/
+	display: inline-block;
  }
  
  form button { 
@@ -68,13 +82,20 @@
  }
  
  #sendbut{
-	width:3%;
+	/*width:3%;*/
 	height:80%;
 	background-color: #000000;
 	border-radius:100%;
+	display: inline-block;
 	position: absolute;
-	top:10%;	
+	top:10%;
+	/*left:94%;*/
+	right:0;
+	visibility: hidden;	
+	padding: 0 .5% 0 0%;
 }
+
+
 
 #sendbut:hover{
 	cursor:pointer;
@@ -90,23 +111,30 @@
  }
  
  #messages { 
-
  	margin: 0; 
  	padding: 0; 
-	color:white;
- 	
+	color:white;	
  }
  
  #messages li { 
-	/**/
  	padding: 5px 10px; 
 	/* background: rgb(4, 189, 4); */
 	background: #049cfb; 
-	width:25%;
-	margin:2.5% 0;
+	width:30%;
+	max-width:60%;
+	/*font-size:3vw;*/
+	margin: 2.5% 0;
 	border-radius:15px;
-	
+	text-align: left;
+	white-space:pre-line;
+	overflow-wrap: normal;
+	word-break:break-all;/*Will have to use this for now*/
+	/*overflow:auto;*/
 
+ }
+
+ #messages li:last-child{
+	margin-bottom:8%;
  }
 
  #messages #list{
@@ -131,14 +159,14 @@
 
 #m{
 	border-radius:20px;
-	padding:15px;
+	padding:10px;
 	margin:0;
-	width:95%;
-	height:100%;
+	width:92.5%;
+	height:10%;
 	color:rgb(255, 255, 255);
 	
 }
-#messsagebox{
+#messagebox{
 	color:#8a8c8a;
 	border-radius:20px;
 	border:#8a8c8a 1px solid;	
@@ -146,5 +174,6 @@
 	background-color: #000000;
 	padding:0px;
 	margin:0 auto;
+	position:relative;/*For button (sendbut) element*/
 }
 

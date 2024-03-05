@@ -6,35 +6,82 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = "stylesheet" href="style.css">
 	<script>
-		//var name = prompt("Please enter your name");
+		var name = prompt("Please enter your name");
 	</script>
 </head>
-<body>
-    
+<body> 
 	
     <div id="intro">
-		<div id="back"> < </div><h1>Curtis' Test Chat Room</h1>
-	  <h2>(Messages do not save - For exercise purposes)</h2>
+		<div id="back"> < </div><!--<h1>Curtis' Test Chat Room</h1>-->
+
+		<div id="grouppics">
+			
+			<!--<img id="yourpropic" src="propic.png"/>-->
+
+		</div>
+		<div id="showpeople"style="color:white;display:block;text-align: center;"></div>
+		
+	  <!--<h2>(Messages do not save - For exercise purposes)</h2>-->
     </div>
-    
+    </div>
+
     <ul id="messages"></ul>
     
     <form action="">
-      <div id="messsagebox"><input id="m" placeholder="iMessage" autocomplete="off" required /><button id="sendbut"><img id="sendimg" src="sendbutton.png"/></button></div>
+      <div id="messagebox"><input id="m" oninput="buttonhandling()" placeholder="iMessage" autocomplete="off" required />
+		<button id="sendbut"><img id="sendimg" src="sendbutton.png"/></button>
+	</div>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <!--<script src="/socket.io/socket.io.js"></script>-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script>
-		
+    <script>		
     		var socket = io();
+    		/*socket.emit('joining msg', name,(response) =>{});*/
+			socket.emit('joining msg', name) //Like a function call (sent to app.js backend)
 
-    		socket.emit('joining msg', name); //Like a function call (sent to app.js backend)
+			socket.emit('defaultpropic');
 
+			socket.on('getPropic1',(data)=>{
+			/*const image = new Image();  image.src='data:image/png;base64,' + data.image;*///document.getElementById("yourpropic").src="temppropic.png"
+
+			console.log("Total users in chat:" + data.totalclients);
+			var container= document.getElementById("grouppics");
+
+			if(container.hasChildNodes()){
+				container.replaceChildren();
+			}
+			
+			for( x =0; x<data.totalclients; x++){			
+			var addpropic = document.createElement("img");
+			addpropic.src = 'data:image/png;base64,' + data.image;
+			addpropic.width = 50;
+			addpropic.height = 50;
+			addpropic.margin = 0;
+
+			if(data.totalclients == 1){
+			document.getElementById("showpeople").innerHTML = "You";
+		}
+			else{
+				document.getElementById("showpeople").innerHTML = data.totalclients + " people";
+		}
+			container.appendChild(addpropic);
+		}
+
+		//container. = 1000 / totalclients;
+
+			});
+			
+
+//This section is where the "magic" happens
+//How the window differentiates from YOU and the person you are messaging
+
+				var you ='You';
     		$('form').submit(function(e) { //When message is sent
     			e.preventDefault();            // will prevent page reloading
       			socket.emit('chat message', (name + ':  ' + $('#m').val()));
-                        $('#messages').append($('<li id="list">').text('You:  ' + $('#m').val()));
+                        $('#messages').append($('<li id="list">').text(you + ':  ' + $('#m').val()));
       			$('#m').val('');
       			return false;
     		});
@@ -43,5 +90,38 @@
     		});
   		
     </script>
+	<script>
+		
+	</script>
+
+	<script>
+
+		batterypercentage();
+	function batterypercentage(){
+		var battery = navigator.getBattery()
+			.then(function(battery){
+				battpercentage = battery.level *100;
+				console.log(battpercentage);
+			})
+
+		}
+		var batterypercentage1 = setInterval(batterypercentage,600000); //check battery every 10 mins (in milliseconds)
+		</script>
+
+	<script>
+		function buttonhandling(){
+			var showbutton = document.getElementById("sendbut");
+			var input = document.getElementById("m");
+
+			if(input && input.value){
+				showbutton.style.visibility ="visible";		
+			}
+			else{
+				showbutton.style.visibility = "hidden";
+			}			
+		}
+			
+
+	</script>
 </body>
 </html>

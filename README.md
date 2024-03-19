@@ -5,5 +5,6 @@ To dos:
 - Have time when text was sent and when text was read by other user
 - Potentially reflect Wifi connection?
 - Proper text bubble display
+- Have the ability to add reactions when you click on a text bubble/"reply"
 
 *All assets created by me

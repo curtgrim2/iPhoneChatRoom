@@ -6,6 +6,8 @@ To dos:
 - Potentially reflect Wifi connection?
 - Proper text bubble display
 - Have the ability to add reactions when you click on a text bubble/"reply"
+- Draw and implement charging symbol
+- Have proper measurements
 
 Phase 2 - Add facetime?
 

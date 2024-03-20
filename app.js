@@ -28,7 +28,7 @@ var totalclients = 0;
 const defaultpropic = fs.readFileSync("C:\\Users\\dgrea\\TestChatRoom\\public\\propic3.png");
 
 io.on('connection', (socket) => {
-  //console.log('new user connected');
+
   ++totalclients;
   socket.on('joining msg', (username) => {
     
@@ -36,6 +36,7 @@ io.on('connection', (socket) => {
   	name = username;
   	//io.emit('chat message', `---${name} joined the chat---`);
     io.emit('getPropic1',{image:defaultpropic.toString('base64'),totalclients:totalclients});
+    io.emit('start time','Testo'); //calls out to the client to execute socket.on (?)
   });
 
 

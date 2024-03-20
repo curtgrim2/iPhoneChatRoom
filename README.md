@@ -7,4 +7,6 @@ To dos:
 - Proper text bubble display
 - Have the ability to add reactions when you click on a text bubble/"reply"
 
+Phase 2 - Add facetime?
+
 *All assets created by me

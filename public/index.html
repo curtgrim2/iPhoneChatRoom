@@ -6,24 +6,103 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel = "stylesheet" href="style.css">
 	<script>
-		var name = prompt("Please enter your name");
+		//var name = prompt("Please enter your name");
 	</script>
 </head>
 <body> 
+
+<!--Can different users from 2 different computers send messages via Github?-->
+				 <!--Needs:
+Display of battery life (in the console log currently)
+Delivered/Read on message
+Notification Sound
+Typing Bubble-->
+
 	
     <div id="intro">
-		<div id="back"> < </div><!--<h1>Curtis' Test Chat Room</h1>-->
 
-		<div id="grouppics">
-			
-			<!--<img id="yourpropic" src="propic.png"/>-->
+		<div id="constanttime">
+
+			<script>
+				 var ctime = document.getElementById("constanttime");				 
+				
+				setthetime();/*Have to call the function first before setInterval can activate*/
+
+				 function setthetime(){
+					var timern = new Date();
+					//console.log(timern.getHours() + ":" + timern.getMinutes());
+					//console.log(timern.toLocaleTimeString());
+					ctime.innerHTML = timern.toLocaleTimeString().slice(0,4); //Have to do it this way bc time is rounding oddly when mins is single digits
+					//+ " " + timern.toLocaleTimeString().slice(9,11) for AM PM
+				 }
+
+				 var newtime = setInterval(setthetime,1000);
+			</script>
 
 		</div>
-		<div id="showpeople"style="color:white;display:block;text-align: center;"></div>
+
+
+		<div id="batterycon"><img id="charging" src="charge2.png" /><div id="showbattery">
+
+			<script>
+				batterypercentage();
+			function batterypercentage(){
+				var battery2 = navigator.getBattery()
+					.then(function(battery2){
+						battpercentage = battery2.level *100;
 		
-	  <!--<h2>(Messages do not save - For exercise purposes)</h2>-->
+						document.getElementById("showbattery").style.width = battpercentage + "%";
+						console.log( battpercentage + "%");
+					})
+		
+				}
+				var batterypercentage1 = setInterval(batterypercentage,600000); //check battery every 10 mins (in milliseconds)
+				</script>
+
+
+				<script>
+					arewecharging();
+		
+					function arewecharging(){
+						var battery1 = navigator.getBattery()
+						.then(function(battery1){
+							//Checks to see if battery is charging
+							//console.log("Is the laptop charging on load?: " + battery1.charging);
+
+							if(battery1.charging){
+								document.getElementById("showbattery").style.backgroundColor = "#03fc24";
+								document.getElementById("charging").style.visibility = "visible";
+
+							}
+
+							else{
+								document.getElementById("showbattery").style.backgroundColor = "white";
+								document.getElementById("charging").style.visibility = "hidden";
+							}
+
+							})
+					}
+
+					var checkeverycharge = setInterval(arewecharging,1000);
+	
+				</script>
+
+				
+		</div></div>
+
+		<br>
+
+		<div id="back"> < </div><!--<h1>Curtis' Test Chat Room</h1>-->
+
+		<div id="grouppics"></div>
+
+		<!--<div id="showbattery">xsx</div>-->
+
+		<div id="showpeople"></div>
+		
     </div>
-    </div>
+
+	<div id="timestamp"></div>
 
     <ul id="messages"></ul>
     
@@ -44,7 +123,6 @@
 			socket.emit('defaultpropic');
 
 			socket.on('getPropic1',(data)=>{
-			/*const image = new Image();  image.src='data:image/png;base64,' + data.image;*///document.getElementById("yourpropic").src="temppropic.png"
 
 			console.log("Total users in chat:" + data.totalclients);
 			var container= document.getElementById("grouppics");
@@ -74,39 +152,30 @@
 			});
 			
 
-//This section is where the "magic" happens
-//How the window differentiates from YOU and the person you are messaging
+
 
 				var you ='You';
-    		$('form').submit(function(e) { //When message is sent
+    		$('form').submit(function(e) { 
     			e.preventDefault();            // will prevent page reloading
       			socket.emit('chat message', (name + ':  ' + $('#m').val()));
                         $('#messages').append($('<li id="list">').text(you + ':  ' + $('#m').val()));
+							$('#messages').append($('<br/>'));
       			$('#m').val('');
       			return false;
     		});
     		socket.on('chat message', function(msg){
       			$('#messages').append($('<li id="other">').text(msg));
     		});
+
+			socket.on('start time',function(x){
+					var thetime = new Date();
+					
+					document.getElementById("timestamp").innerHTML= "Today " + thetime.toLocaleTimeString().slice(0,4) + " " + thetime.toLocaleTimeString().slice(8,11);
+			});
   		
     </script>
-	<script>
-		
-	</script>
 
-	<script>
 
-		batterypercentage();
-	function batterypercentage(){
-		var battery = navigator.getBattery()
-			.then(function(battery){
-				battpercentage = battery.level *100;
-				console.log(battpercentage);
-			})
-
-		}
-		var batterypercentage1 = setInterval(batterypercentage,600000); //check battery every 10 mins (in milliseconds)
-		</script>
 
 	<script>
 		function buttonhandling(){

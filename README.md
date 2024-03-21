@@ -4,10 +4,11 @@ Based on https://medium.com/swlh/real-time-chat-application-using-socket-io-in-n
 To dos:
 - Have time when text was sent and when text was read by other user
 - Potentially reflect Wifi connection?
-- Proper text bubble display
+- Proper text bubble display (for opposition)
 - Have the ability to add reactions when you click on a text bubble/"reply"
 - Draw and implement charging symbol
 - Have proper measurements
+- Add the ability to see names of the others who texted above the direct messages
 
 Phase 2 - Add facetime?
 

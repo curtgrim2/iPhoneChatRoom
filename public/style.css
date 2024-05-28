@@ -189,14 +189,14 @@
  #messages { 
  	margin: 0; 
  	padding: 0; 
-	color:white;	
+	color:white;
 	text-align:right; /*For the blue text bubbles*/
+	
  }
  
  #messages li { 
 	font-size:20px;
  	padding: 5px 10px; 
-	/* background: rgb(4, 189, 4); */
 	background: #049cfb; 
 	display: inline-block;
 	margin: .5% 0;
@@ -208,21 +208,28 @@
 
  }
 
- #messages #li:first-child{
-	margin-top:10%;
- }
 
- #messages #list:last-child{
-	margin-bottom:8%;
- }
+ #messages2 { 
+	margin: 0; 
+	padding: 0; 
+   color:white;
+   text-align:right; /*For the blue text bubbles*/
+}
 
- #messages #list:last-of-type{
-	margin-bottom:10%;
- }
+#messages2 li { 
+   font-size:20px;
+	padding: 5px 10px; 
+   background: #049cfb; 
+   display: inline-block;
+   margin: .5% 0;
+   border-radius:15px;
+   /*text-align: center;*/
+   white-space:pre-line;
+   overflow-wrap: normal;
+   word-break:break-all;/*Will have to use this for now*/
 
- #messages #other:last-of-type{
-	margin-bottom:10%;
- }
+}
+
 
  #messages #list{
 	position: relative; /*Relative to the block above?*/
@@ -234,7 +241,8 @@
 	
  }
 
- #messages #list:last-of-type::before{
+/*
+ #messages .yourside:last-of-type::before{
 	content: "";
 	position: absolute;
 	z-index: -1;
@@ -247,7 +255,8 @@
 	transform: translate(0, -2px);
  }
 
- #messages #list:last-of-type::after{
+
+ #messages .yourside:last-of-type::after{
 	content: "";
   position: absolute;
   z-index: 1;
@@ -259,6 +268,7 @@
   border-bottom-left-radius: 10px;
  transform: translate(-30px, -2px);
  } 
+ */
 
  #messages #other{
 	background: rgb(88, 88, 88);
@@ -266,17 +276,20 @@
 	width:fit-content; /*Have the width be based on the length of the text*/
 	max-width:60%;
 	text-align:center;
+	margin:0 0 0 20px;
 
  }
 
- /*
-
- #messages #other:last-of-type::before{
+ 
+/*
+ #messages2 #other:last-of-type::before{
 	content: "";
+	color:brown;
 	position: absolute;
+	top:150px;
 	z-index: -1;
-	bottom: -2px;
-	right: -7px;
+	
+
 	height: 20px;
 	border-right: 20px solid #0B93F6;
 	background: red;
@@ -284,20 +297,20 @@
 	transform: translate(0, -2px);
  }
 
- #messages #other:last-of-type::after{
+ #messages2 #other:last-of-type::after{
 	content: "";
   position: absolute;
   z-index: 1;
   bottom: -2px;
-  right: -55.5px;
+  right: 55.5px;
   width: 26px;
   height: 20px;
   background: white;
   border-bottom-left-radius: 10px;
  transform: translate(-30px, -2px);
  }
- */
  
+ */
  /*#messages li:nth-child(odd) { 
  	background: #f2f2f2; 
  }*/

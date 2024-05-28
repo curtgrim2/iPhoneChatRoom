@@ -7,6 +7,7 @@
 	<link rel = "stylesheet" href="style.css">
 	<script>
 		//var name = prompt("Please enter your name");
+		var name = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
 	</script>
 </head>
 <body> 
@@ -32,7 +33,7 @@ Typing Bubble-->
 					var timern = new Date();
 					//console.log(timern.getHours() + ":" + timern.getMinutes());
 					//console.log(timern.toLocaleTimeString());
-					ctime.innerHTML = timern.toLocaleTimeString().slice(0,4); //Have to do it this way bc time is rounding oddly when mins is single digits
+					ctime.innerHTML = timern.toLocaleTimeString().slice(0,5); //Have to do it this way bc time is rounding oddly when mins is single digits
 					//+ " " + timern.toLocaleTimeString().slice(9,11) for AM PM
 				 }
 
@@ -102,9 +103,16 @@ Typing Bubble-->
 		
     </div>
 
+
+
+<!--Beyond Intro-->
+
+
+
 	<div id="timestamp"></div>
 
     <ul id="messages"></ul>
+	<ul id="messages2"></ul>
     
     <form action="">
       <div id="messagebox"><input id="m" oninput="buttonhandling()" placeholder="iMessage" autocomplete="off" required />
@@ -147,8 +155,6 @@ Typing Bubble-->
 			container.appendChild(addpropic);
 		}
 
-		//container. = 1000 / totalclients;
-
 			});
 			
 
@@ -158,19 +164,20 @@ Typing Bubble-->
     		$('form').submit(function(e) { 
     			e.preventDefault();            // will prevent page reloading
       			socket.emit('chat message', (name + ':  ' + $('#m').val()));
-                        $('#messages').append($('<li id="list">').text(you + ':  ' + $('#m').val()));
+                        $('#messages').append($('<li class = "yourside" id="list">').text(you + ':  ' + $('#m').val()));
 							$('#messages').append($('<br/>'));
       			$('#m').val('');
       			return false;
     		});
     		socket.on('chat message', function(msg){
-      			$('#messages').append($('<li id="other">').text(msg));
+				//$('messages').append($(name).text(msg));
+      			$('#messages').append($('<li class ="theirside" id="other">').text(msg));
     		});
 
 			socket.on('start time',function(x){
 					var thetime = new Date();
 					
-					document.getElementById("timestamp").innerHTML= "Today " + thetime.toLocaleTimeString().slice(0,4) + " " + thetime.toLocaleTimeString().slice(8,11);
+					document.getElementById("timestamp").innerHTML= "Today " + thetime.toLocaleTimeString().slice(0,5) + " " + thetime.toLocaleTimeString().slice(8,11);
 			});
   		
     </script>

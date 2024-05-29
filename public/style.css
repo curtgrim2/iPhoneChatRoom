@@ -2,6 +2,7 @@
 	margin: 0; 
 	padding: 0; 
 	box-sizing: border-box; 
+	user-select:none;
 }
  
   #intro{
@@ -221,7 +222,7 @@
 	padding: 5px 10px; 
    background: #049cfb; 
    display: inline-block;
-   margin: .5% 0;
+   margin: 2% 0;
    border-radius:15px;
    /*text-align: center;*/
    white-space:pre-line;
@@ -231,7 +232,7 @@
 }
 
 
- #messages #list{
+ #messages .yourside{ /*#messages #list{*/
 	position: relative; /*Relative to the block above?*/
 	left:-5%;
 	list-style: none;
@@ -276,7 +277,8 @@
 	width:fit-content; /*Have the width be based on the length of the text*/
 	max-width:60%;
 	text-align:center;
-	margin:0 0 0 20px;
+	/*margin:0 0 0 20px;*/
+	margin:1% 0;
 
  }
 

@@ -7,14 +7,14 @@
 	<link rel = "stylesheet" href="style.css">
 	<script>
 		//var name = prompt("Please enter your name");
-		var name = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
+		var yournum = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
+		console.log(yournum);
 	</script>
 </head>
 <body> 
 
 <!--Can different users from 2 different computers send messages via Github?-->
 				 <!--Needs:
-Display of battery life (in the console log currently)
 Delivered/Read on message
 Notification Sound
 Typing Bubble-->
@@ -31,13 +31,18 @@ Typing Bubble-->
 
 				 function setthetime(){
 					var timern = new Date();
-					//console.log(timern.getHours() + ":" + timern.getMinutes());
-					//console.log(timern.toLocaleTimeString());
-					ctime.innerHTML = timern.toLocaleTimeString().slice(0,5); //Have to do it this way bc time is rounding oddly when mins is single digits
+					let hours = timern.getHours();
+					let minutes = timern.getMinutes();
+
+					minutes = minutes < 10? '0' + minutes: minutes;
+					hours = hours> 12 ? hours - 12: hours;
+					
+					ctime.innerHTML = hours + ":" + minutes;
+					//ctime.innerHTML = timern.toLocaleTimeString().slice(0,5); //Have to do it this way bc time is rounding oddly when mins is single digits
 					//+ " " + timern.toLocaleTimeString().slice(9,11) for AM PM
 				 }
 
-				 var newtime = setInterval(setthetime,1000);
+				 var newtime = setInterval(setthetime,1000); //For clock on the upper left corner
 			</script>
 
 		</div>
@@ -112,7 +117,10 @@ Typing Bubble-->
 	<div id="timestamp"></div>
 
     <ul id="messages"></ul>
-	<ul id="messages2"></ul>
+
+	<ul id="messages2">
+		<!--<div id="nametag"></div>-->
+	</ul>
     
     <form action="">
       <div id="messagebox"><input id="m" oninput="buttonhandling()" placeholder="iMessage" autocomplete="off" required />
@@ -129,17 +137,25 @@ Typing Bubble-->
 			socket.emit('joining msg', name) //Like a function call (sent to app.js backend)
 
 			socket.emit('defaultpropic');
-
+			var allnums = [yournum];
 			socket.on('getPropic1',(data)=>{
 
-			console.log("Total users in chat:" + data.totalclients);
+			//console.log("Total users in chat:" + data.totalclients);
 			var container= document.getElementById("grouppics");
 
 			if(container.hasChildNodes()){
 				container.replaceChildren();
 			}
-			
-			for( x =0; x<data.totalclients; x++){			
+			var allnums = [];
+			for( x =0; x<data.totalclients; x++){		
+				
+		if(x>0){
+			allnums[x] = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
+		}
+
+			//allnums[x] = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
+			//allnums[x] = data.allnums[x];
+
 			var addpropic = document.createElement("img");
 			addpropic.src = 'data:image/png;base64,' + data.image;
 			addpropic.width = 50;
@@ -155,29 +171,93 @@ Typing Bubble-->
 			container.appendChild(addpropic);
 		}
 
+		console.log(allnums);
+
 			});
 			
 
 
 
 				var you ='You';
+				var yourmessagecounter=0;
+				var othermessages = 0;
+
+				var yourturn = false;
     		$('form').submit(function(e) { 
     			e.preventDefault();            // will prevent page reloading
-      			socket.emit('chat message', (name + ':  ' + $('#m').val()));
+
+
+				
+
+
+      			socket.emit('chat message', (allnums[0] + ': ' + $('#m').val()));
                         $('#messages').append($('<li class = "yourside" id="list">').text(you + ':  ' + $('#m').val()));
 							$('#messages').append($('<br/>'));
       			$('#m').val('');
+
+
+				if(yourmessagecounter==0){
+					var landmark = document.getElementById("messages").lastElementChild;
+				var time2check = landmark.previousElementSibling;
+				
+					
+
+				  if(time2check && time2check.id === 'list'){ // && time2check.id === 'list'
+					console.log("Your turn");
+					othermessages=0;
+					yourmessagecounter++;
+				}
+
+				}
+
       			return false;
     		});
     		socket.on('chat message', function(msg){
-				//$('messages').append($(name).text(msg));
+				//$('messages').append($('<div>').text(msg));
       			$('#messages').append($('<li class ="theirside" id="other">').text(msg));
+
+
+					if(othermessages==0){
+						var landmark = document.getElementById("messages").lastElementChild;
+				var time2check = landmark.previousElementSibling;
+
+				console.log(landmark.innerHTML);
+				
+				  if(time2check && time2check.id === 'other'){ //WE NEED TO UNDERSTAND THIS LOGIC
+
+				}
+				else{
+
+					console.log(time2check); //Get phone number
+
+				/*	if(msg.slice(0,14)==time2check2.slice(0,14)){
+
+					} */
+					
+					console.log("Other users turn");					
+			}
+
+			othermessages++;
+			yourmessagecounter=0;
+					}
+
     		});
 
 			socket.on('start time',function(x){
 					var thetime = new Date();
+					let hours = thetime.getHours();
+					let minutes = thetime.getMinutes();
+
+					hours = hours > 12? hours -12: hours;
+					hours = hours == 0? 12: hours;
+					//Handling the AM cases
+
+					var period = hours>=12? 'PM': 'AM';
+
+					minutes = minutes < 10? '0' + minutes: minutes; //Making sure the 0 in single digit minutes is accounted for
 					
-					document.getElementById("timestamp").innerHTML= "Today " + thetime.toLocaleTimeString().slice(0,5) + " " + thetime.toLocaleTimeString().slice(8,11);
+					document.getElementById("timestamp").innerHTML= "Today " + hours + ":" + minutes + " " + period;
+					//document.getElementById("timestamp").innerHTML= "Today " + thetime.toLocaleTimeString().slice(0,5) + " " + thetime.toLocaleTimeString().slice(8,11);
 			});
   		
     </script>

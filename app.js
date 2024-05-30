@@ -38,12 +38,13 @@ io.on('connection', (socket) => {
     
     //io.emit('chat message', `---${phonenumber} joined the chat---`);
 
-    var allnums =[];
+    /*var allnums =[];
     var x=0;
     allnums[x++] = "(609) " + (Math.floor(Math.random()*900)+100) +"-" + (Math.floor(Math.random()*8999)+1001);
-
+    io.emit('getPropic1',{image:defaultpropic.toString('base64'),totalclients:totalclients,allnums:allnums});*/
+    
     io.emit('getPropic1',{image:defaultpropic.toString('base64'),totalclients:totalclients});
-    //io.emit('getPropic1',{image:defaultpropic.toString('base64'),totalclients:totalclients,allnums:allnums});
+  
     io.emit('start time','Testo'); //calls out to the client to execute socket.on (?)
   });
 

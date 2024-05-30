@@ -110,14 +110,15 @@ Typing Bubble-->
 
 
 
+
+
+
 <!--Beyond Intro-->
-
-
 
 	<div id="timestamp"></div>
 
-    <ul id="messages"></ul>
 
+    <ul id="messages"></ul>
 	<ul id="messages2">
 		<!--<div id="nametag"></div>-->
 	</ul>
@@ -127,6 +128,15 @@ Typing Bubble-->
 		<button id="sendbut"><img id="sendimg" src="sendbutton.png"/></button>
 	</div>
     </form>
+
+
+
+
+
+
+
+
+
 
     <!--<script src="/socket.io/socket.io.js"></script>-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
@@ -181,6 +191,8 @@ Typing Bubble-->
 				var you ='You';
 				var yourmessagecounter=0;
 				var othermessages = 0;
+				var testing='Could be anything';
+				var isthisthefirstmessage = true;
 
 				var yourturn = false;
     		$('form').submit(function(e) { 
@@ -190,7 +202,7 @@ Typing Bubble-->
 				
 
 
-      			socket.emit('chat message', (allnums[0] + ': ' + $('#m').val()));
+      			socket.emit('chat message', (allnums[0] + $('#m').val()));
                         $('#messages').append($('<li class = "yourside" id="list">').text(you + ':  ' + $('#m').val()));
 							$('#messages').append($('<br/>'));
       			$('#m').val('');
@@ -212,34 +224,79 @@ Typing Bubble-->
 
       			return false;
     		});
+
+
+			
     		socket.on('chat message', function(msg){
 				//$('messages').append($('<div>').text(msg));
-      			$('#messages').append($('<li class ="theirside" id="other">').text(msg));
+      			$('#messages').append($('<li class ="theirside" id="other">').text(msg.replace(msg.slice(0,14),"")));
 
+					//if(othermessages==0){
 
-					if(othermessages==0){
-						var landmark = document.getElementById("messages").lastElementChild;
+						if(isthisthefirstmessage==true){
+							console.log("Other users turn");
+							var leftside = document.getElementById("messages");
+							var whosspeaking = document.createElement("div");
+							whosspeaking.setAttribute("style", "text-align:left;");   
+							whosspeaking.innerHTML = msg.slice(0,14); 
+							var getlastelement = document.querySelectorAll(".theirside");
+							var lastchild = getlastelement[getlastelement.length -1];
+							leftside.insertBefore(whosspeaking,lastchild);
+							isthisthefirstmessage=false;
+							testing = msg.slice(0,14);
+						}
+
+						else{
+
+					/*for( x=0; x<allnums.length;x++){
+						if(testing==msg.slice(0,14)){
+							console.log("SAME USER");
+						}
+
+						 testing = msg.slice(0,14);
+					}*/
+					//console.log(testing + " vs " + msg.slice(0,14));
+					
+
+				var landmark = document.getElementById("messages").lastElementChild;
 				var time2check = landmark.previousElementSibling;
 
-				console.log(landmark.innerHTML);
-				
-				  if(time2check && time2check.id === 'other'){ //WE NEED TO UNDERSTAND THIS LOGIC
-
+				//console.log(landmark.id);
+				  if(testing==msg.slice(0,14)){
+						console.log("check");
+						testing = msg.slice(0,14);
 				}
 				else{
 
-					console.log(time2check); //Get phone number
+					//console.log(time2check); //Get phone number
+					console.log("Other users turn");
+					console.log(testing + " vs " + msg.slice(0,14));
 
-				/*	if(msg.slice(0,14)==time2check2.slice(0,14)){
 
-					} */
+						
+					//$('#messages').append($('<div style="text-align:left;">').text(msg.slice(0,14)));
+
+					var leftside = document.getElementById("messages");
+
+					var whosspeaking = document.createElement("div");
+					whosspeaking.setAttribute("style", "text-align:left;");   
+					whosspeaking.innerHTML = msg.slice(0,14); 
 					
-					console.log("Other users turn");					
+					var getlastelement = document.querySelectorAll(".theirside");
+					var lastchild = getlastelement[getlastelement.length -1];
+							
+
+					leftside.insertBefore(whosspeaking,lastchild);
+								
 			}
 
 			othermessages++;
 			yourmessagecounter=0;
-					}
+
+			testing = msg.slice(0,14);
+					//}
+
+		}
 
     		});
 

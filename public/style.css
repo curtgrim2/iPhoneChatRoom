@@ -3,7 +3,10 @@
 	padding: 0; 
 	box-sizing: border-box; 
 	user-select:none;
+	color:white;
 }
+
+
  
   #intro{
  	background-color: rgba(71, 70, 70, 0.9);
